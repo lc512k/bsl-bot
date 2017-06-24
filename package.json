@@ -1,0 +1,24 @@
+{
+  "name": "bsl-bot",
+  "version": "1.0.0",
+  "description": "BSL Slackbot",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lc512k/bsl-bot.git"
+  },
+  "author": "lc512k",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lc512k/bsl-bot/issues"
+  },
+  "homepage": "https://github.com/lc512k/bsl-bot#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
