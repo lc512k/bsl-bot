@@ -67,6 +67,6 @@ app.post('/api/', urlencodedParser, (req, res) => {
 });
 
 
-const listen = app.listen(8080, () => {
+const listen = app.listen(process.env.PORT || 8080, () => {
 	console.log('listening')
 });
