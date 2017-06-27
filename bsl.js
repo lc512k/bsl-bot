@@ -51,8 +51,9 @@ module.exports = (req, res, slackResponseType) => {
 			// 	text: url
 			// }
 
+
 			const response = {
-				version: 1.0,
+				version: '1.0',
 				response_type: slackResponseType,
 				type: 'video',
 				url: url,
@@ -63,8 +64,10 @@ module.exports = (req, res, slackResponseType) => {
 				author_name: 'Vidiot',
 				// author_url: http://mlkshk.com/user/Vidiot,
 				provider_name: 'MLKSHK',
+				text: url
 				// provider_url: http://mlkshk.com/
 			}
+			console.log('sending back', response)
 
 			res.send(response);
 		})
