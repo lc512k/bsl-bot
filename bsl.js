@@ -46,35 +46,10 @@ module.exports = (req, res, slackResponseType) => {
 
 	race([findVideo(source1), findVideo(source2)])
 		.then((url) => {
-			let response = {
+			const response = {
 				response_type: slackResponseType,
 				text: url
 			}
-
-			if (slackResponseType === 'test'){
-				response = {
-					response_type: slackResponseType,
-					text: 'https://twitter.com/EmmsieLu/status/879781167746043906'
-				}
-			}
-
-			// const response = {
-			// 	version: '1.0',
-			// 	response_type: slackResponseType,
-			// 	type: 'video',
-			// 	url: url,
-
-			// 	width: 600,
-			// 	height: 400,
-			// 	title: 'Reception',
-			// 	author_name: 'Vidiot',
-			// 	// author_url: http://mlkshk.com/user/Vidiot,
-			// 	provider_name: 'MLKSHK',
-			// 	text: url
-			// 	// provider_url: http://mlkshk.com/
-			// }
-			// console.log('sending back', response)
-
 			res.send(response);
 		})
 		.catch((e) => {
