@@ -54,7 +54,7 @@ module.exports = (req, res, slackResponseType) => {
 			if (slackResponseType === 'test'){
 				response = {
 					response_type: slackResponseType,
-					text: 'http://bsl-bot.herokuapp.com/video/hello.html'
+					text: 'https://youtu.be/Nck6BZga7TQ'
 				}
 			}
 
