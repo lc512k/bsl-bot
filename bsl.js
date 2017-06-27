@@ -46,28 +46,34 @@ module.exports = (req, res, slackResponseType) => {
 
 	race([findVideo(source1), findVideo(source2)])
 		.then((url) => {
-			// const response = {
-			// 	response_type: slackResponseType,
-			// 	text: url
-			// }
-
-
-			const response = {
-				version: '1.0',
+			let response = {
 				response_type: slackResponseType,
-				type: 'video',
-				url: url,
-
-				width: 600,
-				height: 400,
-				title: 'Reception',
-				author_name: 'Vidiot',
-				// author_url: http://mlkshk.com/user/Vidiot,
-				provider_name: 'MLKSHK',
 				text: url
-				// provider_url: http://mlkshk.com/
 			}
-			console.log('sending back', response)
+
+			if (slackResponseType === 'test'){
+				response = {
+					response_type: slackResponseType,
+					text: 'http://bsl-bot.herokuapp.com/video/hello.html'
+				}
+			}
+
+			// const response = {
+			// 	version: '1.0',
+			// 	response_type: slackResponseType,
+			// 	type: 'video',
+			// 	url: url,
+
+			// 	width: 600,
+			// 	height: 400,
+			// 	title: 'Reception',
+			// 	author_name: 'Vidiot',
+			// 	// author_url: http://mlkshk.com/user/Vidiot,
+			// 	provider_name: 'MLKSHK',
+			// 	text: url
+			// 	// provider_url: http://mlkshk.com/
+			// }
+			// console.log('sending back', response)
 
 			res.send(response);
 		})
