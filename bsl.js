@@ -54,7 +54,7 @@ module.exports = (req, res, slackResponseType) => {
 			if (slackResponseType === 'test'){
 				response = {
 					response_type: slackResponseType,
-					text: 'https://www.youtube.com/watch?v=Nck6BZga7TQ'
+					text: 'https://twitter.com/EmmsieLu/status/879781167746043906'
 				}
 			}
 
