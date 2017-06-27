@@ -39,7 +39,7 @@ module.exports = (req, res, slackResponseType) => {
 	// TODO check token
 	// https://api.slack.com/slash-commands
 
-	const word = req.body.text;
+	const word = encodeURI(req.body.text);
 
 	const source1 = `${host}/signmonkey/mp4/${word}.mp4`;
 	const source2 = `${host}/signstation/${word}.mp4`;
