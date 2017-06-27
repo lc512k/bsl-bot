@@ -1,4 +1,4 @@
-//curl -H "Content-Type: application/x-www-form-urlencoded" -X POST -d string=hello http://localhost:8080/api/
+//curl -H Content-Type: application/x-www-form-urlencoded -X POST -d string=hello http://localhost:8080/api/
 
 // token=gIkuvaNzQIHg97ATvDxqgjtO
 // team_id=T0001
@@ -13,44 +13,62 @@
 // text=94070
 // response_url=https://hooks.slack.com/commands/1234/5678
 
+const race = require('promise-rat-race');
+
 const host = 'https://media.signbsl.com/videos/bsl';
 
-module.exports = function(req, res, slackResponseType) {
-	console.log(JSON.stringify(req.body, null, 2));
+const findVideo = (url) => {
 
+	return new Promise ((resolve, reject) => {
+		fetch(url)
+			.then((response) => {
+				if (response.status >= 400) {
+					reject('not found');
+				}
+				else {
+					resolve(url);
+				}
+			})
+			.catch(() => {
+				reject('service down');
+			});
+	});
+}
+
+module.exports = (req, res, slackResponseType) => {
 	// TODO check token
 	// https://api.slack.com/slash-commands
 
 	const word = req.body.text;
 
-	const url1 = `${host}/signmonkey/mp4/${word}.mp4`;
-	const url2 = `${host}/signstation/${word}.mp4`;
+	const source1 = `${host}/signmonkey/mp4/${word}.mp4`;
+	const source2 = `${host}/signstation/${word}.mp4`;
 
-	// TODO rat race it
+	race([findVideo(source1), findVideo(source2)])
+		.then((url) => {
+			// const response = {
+			// 	response_type: slackResponseType,
+			// 	text: url
+			// }
 
-	const url = url1;
+			const response = {
+				version: 1.0,
+				response_type: slackResponseType,
+				type: 'video',
+				url: url,
 
-	console.log('requesting ', word, url)
-
-	fetch(url)
-		.then(function(response) {
-			if (response.status >= 400) {
-				console.log('not found')
-				res.send('not found');
+				width: 600,
+				height: 400,
+				title: 'Reception',
+				author_name: 'Vidiot',
+				// author_url: http://mlkshk.com/user/Vidiot,
+				provider_name: 'MLKSHK',
+				// provider_url: http://mlkshk.com/
 			}
-			else {
 
-				const response = {
-					response_type: slackResponseType,
-					text: url
-				}
-
-				console.log('found');
-				res.send(response);
-			}
+			res.send(response);
 		})
-		.catch(function(e) {
-			res.send('service is down');
-			console.log(e);
+		.catch((e) => {
+			res.send(e)
 		});
 }

@@ -13,10 +13,11 @@ app.get('/', (req, res) => {
 app.post('/api/bsl', urlencodedParser, (req, res) => {
 	bsl(req, res, 'in_channel');
 });
+
 app.post('/api/bsl-me', urlencodedParser, (req, res) => {
 	bsl(req, res, 'ephemeral');
 });
 
-const listen = app.listen(process.env.PORT || 8080, () => {
+app.listen(process.env.PORT || 8080, () => {
 	console.log('listening')
 });
