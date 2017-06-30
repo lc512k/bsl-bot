@@ -49,8 +49,11 @@ module.exports = (req, res, slackResponseType) => {
 		response_type: slackResponseType
 	};
 
+	console.log('searching for ', word);
+
 	race([findVideo(source1), findVideo(source2), findVideo(source3)])
 		.then((url) => {
+			console.log('found ', url);
 			response.url = url;
 			res.send(response);
 		})
