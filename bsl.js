@@ -1,4 +1,4 @@
-//curl -H Content-Type: application/x-www-form-urlencoded -X POST -d string=hello http://localhost:8080/api/
+//curl -X POST -d text=hello http://localhost:8080/api/bsl/
 
 // token=gIkuvaNzQIHg97ATvDxqgjtO
 // team_id=T0001
@@ -55,10 +55,12 @@ module.exports = (req, res, slackResponseType) => {
 		.then((url) => {
 			console.log('found ', url);
 			response.url = url;
+			console.log('response ', response);
 			res.send(response);
 		})
 		.catch((e) => {
 			// Default to the main site search
+			console.log('response (default)', response);
 			response.url = `http://www.signbsl.com/sign/${word}`;
 			res.send(response);
 		});
