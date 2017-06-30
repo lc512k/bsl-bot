@@ -43,16 +43,20 @@ module.exports = (req, res, slackResponseType) => {
 
 	const source1 = `${host}/signmonkey/mp4/${word}.mp4`;
 	const source2 = `${host}/signstation/${word}.mp4`;
+	const source3 = `${host}/BenFletcherTechSigns/mp4/${word}.mp4`
 
-	race([findVideo(source1), findVideo(source2)])
+	const response = {
+		response_type: slackResponseType
+	};
+
+	race([findVideo(source1), findVideo(source2), findVideo(source3)])
 		.then((url) => {
-			const response = {
-				response_type: slackResponseType,
-				text: url
-			}
+			response.url = url;
 			res.send(response);
 		})
 		.catch((e) => {
-			res.send(e)
+			// Default to the main site search
+			response.url = `http://www.signbsl.com/sign/${word}`;
+			res.send(response);
 		});
 }
