@@ -54,14 +54,14 @@ module.exports = (req, res, slackResponseType) => {
 	race([findVideo(source1), findVideo(source2), findVideo(source3)])
 		.then((url) => {
 			console.log('found ', url);
-			response.url = url;
+			response.text = url;
 			console.log('response ', response);
 			res.send(response);
 		})
 		.catch((e) => {
 			// Default to the main site search
 			console.log('response (default)', response);
-			response.url = `http://www.signbsl.com/sign/${word}`;
+			response.text = `http://www.signbsl.com/sign/${word}`;
 			res.send(response);
 		});
 }
